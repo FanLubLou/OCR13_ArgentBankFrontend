@@ -19,6 +19,7 @@ html {
   
   .bg-dark {
     background-color: #12002b;
+    /* ajout pour adaptation */
     display: flex;
     flex-direction: column;
     padding-bottom: 5rem;    
@@ -262,6 +263,54 @@ html {
     font-weight: bold;
     padding: 10px;
   }
+
+  /************* added ligns dedicated to userProfile edition *********/
+
+  .containerEditForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .inputEditForm,
+  .inputEditFormUserName {    
+    height: 2rem;
+    font-size: 1.5rem; 
+  }
+  .inputEditFormUserName{
+    cursor: not-allowed;
+  }
+  .formRow {
+    display: flex;
+    align-items: center;
+  }
+
+  .formRow label {
+    width: 150px; 
+    font-size: 1.5rem;
+  }
+
+  .containerEditButton{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .containerEditButton button{
+    background-color: #00bc77;
+    font-size: 1.5rem;
+    color: white;
+    height: 50px;
+    width: 130px;
+  }
+
+/* *********************************************************** */
+
   
   .header {
     color: #fff;
