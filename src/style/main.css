@@ -339,3 +339,50 @@ html {
     }
   }
   
+  /****************************Ajout pour le composant Error *****************************/
+
+.wrapperError{
+  max-width: 85%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* min-height: 620px; */
+  color: var(--red);
+    
+}        
+.Error404{
+  font-size: clamp(96px, 23vw, 150px);
+  color: #00bc77;        
+}
+.Error404Content{
+  text-align: center;
+  font-weight: 500;
+  font-size: clamp(18px, 4vw, 30px);
+}
+.Error404Link{
+  color: var(--black);
+  font-size: clamp(14px, 4vw, 18px);
+  text-decoration: underline;
+  font-weight: 500;
+  padding-bottom: 40px;
+}
+.error-message{
+  max-width: 85%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* min-height: 620px; */
+  
+   
+}
+
+.error-message h2{
+  font-size: clamp(20px, 12vw,40px);
+}
+.error-message p{ 
+  font-size: clamp(15px, 10vw,30px);
+}

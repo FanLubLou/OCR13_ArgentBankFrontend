@@ -1,23 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, setRememberMe } from "../../features/auth/authSlice";
+import { loginUser, setRememberMe, resetError } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Composant SignIn pour la connexion des utilisateurs.
+ * 
+ * @returns {JSX.Element} Le rendu du composant SignIn.
+ */
 export default function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error, remember } = useSelector((state) => state.auth); 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [rememberMe, setRememberMeState] = useState(remember); // Initialiser avec la valeur du store
+  const [rememberMe, setRememberMeState] = useState(remember); 
+  const [formError, setFormError] = useState(""); 
 
+  useEffect(() => {
+    dispatch(resetError()); 
+  }, [dispatch]);
+
+  /**
+   * Gère l'envoi du formulaire de connexion..
+   * @param {React.FormEvent<HTMLFormElement>} e - L'évenement d'envoi du formulaire.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setRememberMe(rememberMe)); // Met à jour le store avec la valeur de rememberMe
+    dispatch(setRememberMe(rememberMe)); 
+    if (!email || !password) { 
+      setFormError("Please fill in both fields.");
+      return;
+    }
     dispatch(loginUser({ email, password }))
       .then((result) => {
         if (result.meta.requestStatus === "fulfilled") {
           navigate("/User");
+        } else {
+          setFormError("Invalid email or password."); 
         }
       });
   };
@@ -64,7 +84,8 @@ export default function SignIn() {
           >
             {loading ? "Connexion..." : "Sign In"}
           </button>
-          {error && <p>{error.message}</p>}
+          {formError && <p>{formError}</p>} {/* Display form error */}
+          {/* {error && <p>{error.message}</p>} Display API error */}
         </form>
       </section>
     </main>

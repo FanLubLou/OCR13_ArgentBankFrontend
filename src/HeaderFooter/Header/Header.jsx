@@ -4,20 +4,28 @@ import { NavLink } from "react-router-dom";
 import { logout } from '../../features/auth/authSlice';  
 import { useSelector, useDispatch } from 'react-redux';
 import { resetProfile } from '../../features/profile/profileSlice';
-  
+
+/**
+ * Composant fonctionnel représentant l'en-tête de l'application avec une navigation.
+ * Affiche soit les liens pour se connecter, soit le nom de l'utilisateur connecté et une option pour se déconnecter.
+ * 
+ * @component
+ * @returns {JSX.Element} Le rendu du composant Header avec le logo, la connexion ou le profil utilisateur.
+ */
 export default function Header() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const profile = useSelector((state) => state.profile.profile);
 
-  console.log('user de header', user);
-  console.log('profile de header', profile);
-
+  /**
+   * Gère la déconnexion de l'utilisateur en déclenchant les actions Redux `logout` et `resetProfile`.
+   * 
+   * @param {Event} e - L'événement du clic sur le bouton de déconnexion.
+   */
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(logout());
     dispatch(resetProfile());
-    
   };
 
   return (

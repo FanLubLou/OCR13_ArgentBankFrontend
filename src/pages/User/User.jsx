@@ -5,6 +5,14 @@ import { fetchUserProfile, updateUserProfile } from "../../features/profile/prof
 import Account from '../../components/Account/Account';
 import accountsData from './../../data/accountsData.json';
 
+/**
+ * Composant fonctionnel représentant la page de l'utilisateur.
+ * Affiche les informations du profil de l'utilisateur et ses comptes.
+ * Permet à l'utilisateur de modifier son prénom et son nom.
+ *
+ * @component
+ * @returns {JSX.Element} Le rendu du composant User avec les informations de l'utilisateur et ses comptes.
+ */
 export default function User() {
 
   const dispatch = useDispatch();
@@ -20,10 +28,12 @@ export default function User() {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  
 
- 
-
+  /**
+   * Effet qui vérifie si l'utilisateur est connecté.
+   * Si non, il redirige vers la page de connexion.
+   * Si l'utilisateur est connecté mais sans profil, il déclenche la récupération du profil.
+   */
   useEffect(() => {
     if (!user) {
       navigate("/Signin");
@@ -32,6 +42,9 @@ export default function User() {
     }
   }, [dispatch, user, profile, navigate]);
 
+  /**
+   * Effet qui met à jour les champs de prénom et nom lorsque le profil est chargé.
+   */
   useEffect(() => {
     if (profile) {
       setFirstName(profile.firstName);
@@ -39,14 +52,29 @@ export default function User() {
     }
   }, [profile]);
 
+  /**
+   * Gère le clic sur le bouton d'édition.
+   * Active le mode d'édition pour permettre la modification du nom.
+   */
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
+  /**
+   * Gère le clic sur le bouton d'annulation.
+   * Désactive le mode d'édition.
+   */
   const handleCancelClick = () => {
     setIsEditing(false);
   };
 
+  /**
+   * Gère la soumission du formulaire d'édition.
+   * Envoie les nouvelles valeurs de prénom et nom au store pour mettre à jour le profil.
+   * Désactive le mode d'édition après la soumission réussie.
+   *
+   * @param {React.FormEvent} e - L'événement de soumission du formulaire.
+   */
   const handleFormSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUserProfile({ firstName, lastName })).then(() => {
@@ -57,11 +85,10 @@ export default function User() {
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>Erreur: {error.message}</p>;
 
-
   return (
     <main className="main bg-dark">
       <div className="header">
-      {isEditing ? (
+        {isEditing ? (
           <form onSubmit={handleFormSubmit}>
             <h1>Welcome back</h1>
             <div className="containerEditForm">              
@@ -89,22 +116,22 @@ export default function User() {
               <button
                 type="button"
                 onClick={handleCancelClick}
-                >
-                  Cancel
+              >
+                Cancel
               </button>
             </div>
           </form>
         ) : (
           <>
-              <h1>Welcome back<br />
-                {profile ? profile.firstName : ""}{" "}
-                {profile ? profile.lastName : ""}
-              </h1>
+            <h1>Welcome back<br />
+              {profile ? profile.firstName : ""}{" "}
+              {profile ? profile.lastName : ""}
+            </h1>
             <button className="edit-button" onClick={handleEditClick}>
               Edit Name
             </button>
           </>
-          )}   
+        )}   
       </div>
       <h2 className="sr-only">Accounts</h2>
       <div>
@@ -116,7 +143,7 @@ export default function User() {
             description={account.description}
           />
         ))}
-    </div>
+      </div>
     </main>
   )
 }

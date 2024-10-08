@@ -1,6 +1,10 @@
 import React from 'react';
-import './Footer.scss';
 
+/**
+ * Composant fonctionnel représentant le pied de page de l'application.
+ * @function
+ * @returns {JSX.Element} - Le rendu du composant Footer avec un texte de copyright.
+ */
 
 export default function Footer() {
   return (

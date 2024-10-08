@@ -1,5 +1,14 @@
 import React from 'react'
-
+/**
+ * Composant représentant une section de compte avec titre, montant et description.
+ *
+ * @component
+ * @param {Object} props - Propriétés du composant.
+ * @param {string} props.title - Le titre du compte (par exemple, "Checking", "Savings").
+ * @param {string} props.amount - Le montant du compte.
+ * @param {string} props.description - La description du montant (par exemple, "Current Balance").
+ * @returns {JSX.Element} Une section affichant les informations du compte avec un bouton pour voir les transactions.
+ */
 export default function Account({title, amount, description}) {
   return (
     <section className="account">

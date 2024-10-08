@@ -40,6 +40,9 @@ const authSlice = createSlice({
     setRememberMe: (state, action) => {
       state.remember = action.payload; // Met à jour la variable remember
     },
+    resetError: (state) => { // Action pour réinitialiser l'erreur
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -59,6 +62,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, setRememberMe } = authSlice.actions;
-
+// Export des actions
+export const { logout, setRememberMe, resetError } = authSlice.actions;
 export default authSlice.reducer;

@@ -25,11 +25,11 @@ export const fetchUserProfile = createAsyncThunk(
         {}, 
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Ajoute le token dans les en-têtes de la requête
+            Authorization: `Bearer ${token}`, 
           },
         }
       );
-      return response.data; // Retourne les données du profil depuis l'API
+      return response.data; 
     } catch (error) {
       console.log("Erreur API profil:", error);
       if (!error.response) {
