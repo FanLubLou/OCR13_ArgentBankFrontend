@@ -1,0 +1,224 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation - transactions module
+  description: Contains all available API endpoints for the transactions module
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http  
+paths:
+  /user/{accountId}/transactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: View all transactions for the current month
+      description: Retrieve a list of the user's transactions for the current month, along with account balance information.
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: accountId
+          type: string
+          description: ID of the account
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transactions and account balance retrieved successfully
+          schema:
+            $ref: '#/definitions/TransactionsWithBalanceResponse'
+        '400':
+          description: Invalid Fields
+        '404':
+          description: No transactions found for the user in the current month
+        '500':
+          description: Internal Server Error
+  /user/{accountId}/transaction/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: View transaction details
+      description: Retrieve the details of a specific transaction by its ID, including additional information like transaction type, category, and notes.
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: accountId
+          type: string
+          description: ID of the account
+          required: true
+        - in: path
+          name: transactionId
+          type: string
+          description: ID of the transaction
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction details retrieved successfully
+          schema:
+            $ref: '#/definitions/TransactionDetailsResponse'
+        '400':
+          description: Invalid Fields
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Update transaction details
+      description: Update the information of an existing transaction (e.g., category and notes).
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: accountId
+          type: string
+          description: ID of the account
+          required: true
+        - in: path
+          name: transactionId
+          type: string
+          description: ID of the transaction
+          required: true
+        - in: body
+          name: transaction
+          description: Updated transaction data (modifications allowed for category and notes only).
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionDetailsUpdate'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updated successfully
+          schema:
+            $ref: '#/definitions/TransactionDetailsResponse'  # Added response schema
+        '400':
+          description: Invalid Fields
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Delete a transaction
+      description: Delete a specific transaction by its ID.
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: accountId
+          type: string
+          description: ID of the account
+          required: true
+        - in: path
+          name: transactionId
+          type: string
+          description: ID of the transaction
+          required: true
+      produces:
+        - application/json
+      responses:
+        '204':
+          description: Transaction deleted successfully
+        '400':
+          description: Invalid Fields
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  Transaction:
+    type: object
+    required:
+      - id
+      - amount
+      - date
+      - balanceAfterTransaction
+    properties:
+      id:
+        type: string
+        description: Unique ID of the transaction
+      amount:
+        type: number
+        description: Amount of the transaction
+      date:
+        type: string
+        format: date-time
+        description: Date and time of the transaction
+      description:
+        type: string
+        description: Description of the transaction
+      balanceAfterTransaction:
+        type: number
+        description: Account balance after the transaction
+  TransactionDetails:
+    type: object
+    properties:
+      type:
+        type: string
+        description: Type of the transaction (e.g., Electronic)
+      category:
+        type: string
+        description: Category of the transaction (e.g., Food)
+      notes:
+        type: string
+        description: Notes about the transaction
+  TransactionDetailsResponse:
+    type: object
+    properties:
+      transaction:
+        $ref: '#/definitions/Transaction'
+      details:
+        $ref: '#/definitions/TransactionDetails'
+  TransactionDetailsUpdate:
+    type: object
+    properties:
+      category:
+        type: string
+        description: Updated category of the transaction
+      notes:
+        type: string
+        description: Updated notes about the transaction
+  TransactionsWithBalanceResponse:
+    type: object
+    properties:
+      balance:
+        type: number
+        description: Current account balance
+      transactions:
+        type: array
+        items:
+          $ref: '#/definitions/Transaction'

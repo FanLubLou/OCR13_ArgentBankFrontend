@@ -2,7 +2,8 @@ import React from 'react';
 import logoArgentBank from "./../../assets/img/argentBankLogo.png";
 import { NavLink } from "react-router-dom";
 import { logout } from '../../features/auth/authSlice';  
-import { useSelector, useDispatch } from 'react-redux';  
+import { useSelector, useDispatch } from 'react-redux';
+import { resetProfile } from '../../features/profile/profileSlice';
   
 export default function Header() {
   const dispatch = useDispatch();
@@ -15,6 +16,8 @@ export default function Header() {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(logout());
+    dispatch(resetProfile());
+    
   };
 
   return (
@@ -30,9 +33,9 @@ export default function Header() {
       <div className="main-nav-right">
         {user && profile ? (
           <>
-            <NavLink to="/profil" className="main-nav-item">
+            <NavLink to="/user" className="main-nav-item">
               <i className="fa fa-user-circle"></i>
-              {profile.userName}
+              {profile.firstName}
             </NavLink>
             <a href="/" onClick={handleClick} className="main-nav-item">
               <i className="fa fa-sign-out"></i>

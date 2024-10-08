@@ -16,13 +16,13 @@ export const fetchUserProfile = createAsyncThunk(
   "profile/fetchUserProfile",
   async (_, { rejectWithValue }) => {
     try {
-      const token = store.getState().auth.token; // Récupère le token depuis l'état auth
+      const token = store.getState().auth.token; 
       if (!token) {
-        throw new Error("No token found"); // Gère le cas où le token est manquant
+        throw new Error("No token found");
       }
       const response = await axios.post(
-        `${apiUrl}/profile`, // URL de l'API
-        {}, // Corps de la requête vide
+        `${apiUrl}/profile`, 
+        {}, 
         {
           headers: {
             Authorization: `Bearer ${token}`, // Ajoute le token dans les en-têtes de la requête
@@ -33,9 +33,9 @@ export const fetchUserProfile = createAsyncThunk(
     } catch (error) {
       console.log("Erreur API profil:", error);
       if (!error.response) {
-        throw error; // Si aucune réponse de l'API, lance l'erreur
+        throw error; 
       }
-      return rejectWithValue(error.response.data); // Retourne l'erreur de l'API
+      return rejectWithValue(error.response.data); 
     }
   }
 );
@@ -102,9 +102,9 @@ const profileSlice = createSlice({
     /**
      * Réinitialise l'état du profil à ses valeurs initiales.
      * 
-     * @param {Object} state - L'état actuel du slice.
+     * @param {} state - L'état actuel du slice.
      */
-    resetProfile: (state) => initialState,
+    resetProfile: () => initialState,
   },
   extraReducers: (builder) => {
     builder

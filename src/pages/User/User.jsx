@@ -20,6 +20,7 @@ export default function User() {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  
 
  
 
@@ -63,18 +64,8 @@ export default function User() {
       {isEditing ? (
           <form onSubmit={handleFormSubmit}>
             <h1>Welcome back</h1>
-            <div className="containerEditForm">
-              <div className="formRow">
-                <label>Username :  </label>
-                <input
-                  className="inputEditFormUserName"
-                  type="text"
-                  value={profile.userName}
-                  disabled="disabled"                  
-                />
-              </div>
-              <div className="formRow">
-                <label>First Name : </label>
+            <div className="containerEditForm">              
+              <div className="formRow">                
                 <input
                   className="inputEditForm"
                   type="text"
@@ -83,8 +74,7 @@ export default function User() {
                   onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
-              <div className="formRow">
-                <label>Last Name : </label>
+              <div className="formRow">               
                 <input
                   className="inputEditForm"
                   type="text"

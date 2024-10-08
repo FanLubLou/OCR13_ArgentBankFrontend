@@ -270,33 +270,28 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-    padding-bottom: 1rem;
+    flex-direction: row;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
     font-size: 1.5rem;
   }
 
-  .inputEditForm,
-  .inputEditFormUserName {    
-    height: 2rem;
+  .inputEditForm{    
+    height: 3rem;
+    width: 12rem;
     font-size: 1.5rem; 
+    padding-left: 1rem;
   }
-  .inputEditFormUserName{
-    cursor: not-allowed;
-  }
+  
   .formRow {
     display: flex;
     align-items: center;
   }
 
-  .formRow label {
-    width: 150px; 
-    font-size: 1.5rem;
-  }
-
   .containerEditButton{
     display: flex;
-    gap: 10px;
+    height: 2rem;
+    gap: 1.5rem;
     align-items: center;
     justify-content: center;
   }
@@ -306,7 +301,7 @@ html {
     font-size: 1.5rem;
     color: white;
     height: 50px;
-    width: 130px;
+    width: 150px;
   }
 
 /* *********************************************************** */

@@ -1,0 +1,68 @@
+\---src
+    |   config.js
+    |   index.js
+    |   logo.svg
+    |   reportWebVitals.js
+    |   setupTests.js
+    |   
+    +---app
+    |       App.js
+    |       store.js
+    |       
+    +---assets
+    |   \---img
+    |           argentBankLogo.png
+    |           bank-tree.jpeg
+    |           icon-chat.png
+    |           icon-money.png
+    |           icon-security.png
+    |           
+    +---components
+    |   +---Account
+    |   |       Account.jsx
+    |   |       
+    |   \---FeatureItem
+    |           FeatureItem.jsx
+    |           FeatureItem.scss
+    |           
+    +---data
+    |       accountsData.json
+    |       
+    +---features
+    |   +---auth
+    |   |       authSlice.js
+    |   |       
+    |   \---profile
+    |           profileSlice.js
+    |           
+    +---HeaderFooter
+    |   +---Footer
+    |   |       Footer.jsx
+    |   |       Footer.scss
+    |   |       
+    |   \---Header
+    |           Header.jsx
+    |           Header.scss
+    |           
+    +---pages
+    |   +---Error
+    |   |       Error.jsx
+    |   |       
+    |   +---home
+    |   |       Home.jsx
+    |   |       Home.scss
+    |   |       
+    |   +---SignIn
+    |   |       SignIn.jsx
+    |   |       
+    |   \---User
+    |           User.jsx
+    |           
+    \---style
+        |   main.css
+        |   
+        \---utils
+                _mixin.scss
+                _reset.scss
+                _variables.scss
+                

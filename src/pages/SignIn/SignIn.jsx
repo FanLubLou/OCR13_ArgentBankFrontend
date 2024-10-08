@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../features/auth/authSlice";
+import { loginUser, setRememberMe } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
-
 export default function SignIn() {
-  
   const dispatch = useDispatch();
-  const [password, setPassword] = useState("");
-  const { loading, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const { loading, error, remember } = useSelector((state) => state.auth); 
+  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [rememberMe, setRememberMeState] = useState(remember); // Initialiser avec la valeur du store
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(setRememberMe(rememberMe)); // Met à jour le store avec la valeur de rememberMe
     dispatch(loginUser({ email, password }))
       .then((result) => {
         if (result.meta.requestStatus === "fulfilled") {
@@ -24,32 +24,39 @@ export default function SignIn() {
 
   return (
     <main className="main bg-dark">
-    <section className="sign-in-content">
-      <i className="fa fa-user-circle sign-in-icon"></i>
-      <h1>Sign In</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="input-wrapper">
+      <section className="sign-in-content">
+        <i className="fa fa-user-circle sign-in-icon"></i>
+        <h1>Sign In</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="input-wrapper">
             <label htmlFor="email">Username_Email</label>
             <input
               type="text"
               id="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}              
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
             />
-        </div>
-        <div className="input-wrapper">
+          </div>
+          <div className="input-wrapper">
             <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}                             
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
             />
-        </div>
-        <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
+          </div>
+          <div className="input-remember">
+            <input
+              type="checkbox"
+              id="remember-me"
+              checked={rememberMe}
+              onChange={() => setRememberMeState(!rememberMe)}
+            />
             <label htmlFor="remember-me">Remember me</label>
-        </div>
+          </div>
           <button
             type="submit"
             className="sign-in-button"
@@ -58,8 +65,8 @@ export default function SignIn() {
             {loading ? "Connexion..." : "Sign In"}
           </button>
           {error && <p>{error.message}</p>}
-      </form>
-    </section>
+        </form>
+      </section>
     </main>
-  )
+  );
 }
